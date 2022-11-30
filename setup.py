@@ -20,9 +20,9 @@ rootdir = Path(__file__).parent
 long_description = (rootdir / "README.md").read_text()
 
 setup(
-    name="lightning-pod",
-    version="0.0.5",
-    description="A Research Template for the Lightning.ai Ecosystem",
+    name="lightning-ib",
+    version="0.0.1",
+    description="A Lightning AI Application for Interactive Brokers",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="Justin Goheen",
@@ -32,6 +32,7 @@ setup(
         "Environment :: Console",
         "Topic :: Scientific/Engineering :: Artificial Intelligence",
         "Topic :: Scientific/Engineering :: Information Analysis",
+        "Topic :: Office/Business :: Financial :: Investment",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
