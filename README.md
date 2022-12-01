@@ -37,3 +37,52 @@ A basic command line interface `trader` has been provided. The CLI commands are 
 ## Running as a Lightning Application
 
 Given each agent (or worker) is created as a seperate Python script or module, those modules can also be used in Lightning App Workers or ran with Lightning App's `TracerPythonScript`.
+
+## Installation
+
+A virtual environment can be created with Python's venv. The provided `setup.py` and `setup.cfg` will make creating this environment easy – just follow the instructions below after cloning the repo.
+
+```sh
+cd {{ path to clone }}
+python3 -m venv .venv/
+source .venv/bin/activate
+pip install -e .
+```
+
+A set off dev and doc support extras have been provided. The optional extras can be viewed in `setup.cfg`.
+
+To install both sets of extras do the following in terminal:
+
+```sh
+cd {{ path to clone }}
+python3 -m venv .venv/
+source .venv/bin/activate
+pip install -e ".[all]"
+```
+
+Or, to only install `dev` along with the required installs, do the following in terminal: 
+
+```sh
+cd {{ path to clone }}
+python3 -m venv .venv/
+source .venv/bin/activate
+pip install -e ".[dev]"
+```
+
+Or, to only install `docs` along with the required installs, do the following in terminal: 
+
+```sh
+cd {{ path to clone }}
+python3 -m venv .venv/
+source .venv/bin/activate
+pip install -e ".[docs]"
+```
+
+Following completion of one of the above, test the install with the following in terminal:
+
+```sh
+learner --help
+trader --help
+```
+
+both commands should show the help instructions if the install was successful.
