@@ -32,6 +32,9 @@ RAWDATAPATH = os.path.join(MARKETSPATH, "raw")
 PROCESSEDDATAPATH = os.path.join(MARKETSPATH, "processed")
 MARKETSBLOBPATH = os.path.join(MARKETSPATH, "markets.json")
 
+if not os.path.isdir(os.path.join(PROCESSEDDATAPATH)):
+    os.mkdir(os.path.join(PROCESSEDDATAPATH))
+
 with open(MARKETSBLOBPATH) as f:
     markets = json.load(f)
 
