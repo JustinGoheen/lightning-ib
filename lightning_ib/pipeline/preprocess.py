@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# use this to create a pre-processing script if needed
+# use this to create a preprocessing script if needed
 
 import os
 import json
@@ -21,6 +21,7 @@ import yfinance as yf
 from pathlib import Path
 from rich import print as rprint
 from pyarrow import parquet as pq
+from datetime import datetime
 
 from lightning_ib.metrics import factors
 
@@ -38,7 +39,7 @@ if not os.path.isdir(os.path.join(PROCESSEDDATAPATH)):
 with open(MARKETSBLOBPATH) as f:
     markets = json.load(f)
 
-rprint("\n" + f"[bold cyan]PRE PROCESSING[/bold cyan]" + "\n")
+rprint("\n" + f"[{datetime.now().time()}] STARTING PRE PROCESSING")
 
 for key in markets.keys():
 
@@ -47,22 +48,29 @@ for key in markets.keys():
 
     for ticker in markets[key]:
 
+        rprint(f"[{datetime.now().time()}] PROCESSING {ticker.upper()}")
+
         rawtickerdatapath = os.path.join(RAWDATAPATH, key, f"{ticker}.pq")
         processedtickerdatapath = os.path.join(PROCESSEDDATAPATH, key, f"{ticker}.pq")
 
         data = pq.read_table(rawtickerdatapath, columns=["Date", "Open", "High", "Low", "Close"]).to_pandas()
 
         if ticker == "VIX":
-            data["RANK"] = factors.expanding_rank(data["Close"])
+            data[f"{ticker.upper()}_RANK"] = factors.expanding_rank(data["Close"])
         else:
-            data["NATR_RANK"] = factors.expanding_rank(factors.normalized_average_true_range(data, period=20))
-            data["AROON_RANK"] = factors.expanding_rank(factors.aroon_oscillator(data, period=20))
-            data["RSI_RANK"] = factors.expanding_rank(factors.relative_strength_index(data["Close"], period=20))
-            data["ROC_RANK"] = factors.expanding_rank(factors.rate_of_change(data["Close"], period=20))
-            data["RTNS_RANK"] = factors.expanding_rank(factors.log_returns(data["Close"]))
+            data[f"{ticker.upper()}_NATR_RANK"] = factors.expanding_rank(
+                factors.normalized_average_true_range(data, period=20)
+            )
+            data[f"{ticker.upper()}_AROON_RANK"] = factors.expanding_rank(factors.aroon_oscillator(data, period=20))
+            data[f"{ticker.upper()}_RSI_RANK"] = factors.expanding_rank(
+                factors.relative_strength_index(data["Close"], period=20)
+            )
+            data[f"{ticker.upper()}_ROC_RANK"] = factors.expanding_rank(
+                factors.rate_of_change(data["Close"], period=20)
+            )
+            data[f"{ticker.upper()}_RTNS_RANK"] = factors.expanding_rank(factors.log_returns(data["Close"]))
 
         data.drop(["Open", "High", "Low", "Close"], axis=1, inplace=True)
-
         data.to_parquet(processedtickerdatapath)
 
-rprint("\n" + f"[bold cyan]DATA PROCESSED[/bold cyan]" + "\n")
+rprint(f"[{datetime.now().time()}] DATA PROCESSED")

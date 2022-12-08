@@ -12,7 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
-import ib_insync as ibi
+import lightning as L
 
-from pathlib import Path
+
+class LearningWorker(L.LightningWork):
+    def run(self):
+        ...

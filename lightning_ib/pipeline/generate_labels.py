@@ -13,6 +13,18 @@
 # limitations under the License.
 
 import os
-import ib_insync as ibi
 
 from pathlib import Path
+from lightning_ib.core import BruteForceLearner
+
+FILEPATH = Path(__file__)
+PROJECTPATH = FILEPATH.parents[2]
+MARKETSPATH = os.path.join(PROJECTPATH, "data", "markets")
+PROCESSEDDATAPATH = os.path.join(MARKETSPATH, "processed")
+LABELSPATH = os.path.join(PROCESSEDDATAPATH, "labels")
+
+if not os.path.isdir(os.path.join(LABELSPATH)):
+    os.mkdir(os.path.join(LABELSPATH))
+
+labels = BruteForceLearner("SPY")
+labels.to_parquet(LABELSPATH)

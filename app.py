@@ -18,22 +18,25 @@ from pathlib import Path
 import lightning as L
 import torch
 
-from lightning_ib.workers import BruteWorker, LearningWorker, TradingWorker, DashWorker
+from lightning_ib.workers import BruteWorker, LearningWorker, TradingWorker, DashWorker, PipelineWorker
 
 
 class AppFlow(L.LightningFlow):
     def __init__(self):
         super().__init__()
-        self.lit_dash = DashWorker(parallel=True)
-        self.brute = BruteWorker()
-        self.learner = LearningWorker()
-        self.trader = TradingWorker()
+        self.lit_dash = DashWorker(parallel=True, cloud_compute=L.CloudCompute("default"))
+        self.brute = BruteWorker(cloud_compute=L.CloudCompute("default"))
+        self.learner = LearningWorker(cloud_compute=L.CloudCompute("default"))
+        self.trader = TradingWorker(cloud_compute=L.CloudCompute("default"))
+        self.pipeline = PipelineWorker(cloud_compute=L.CloudCompute("default"))
 
     def run(self):
         # start the dash app, it will receive input from each worker
         # as the workers complete their work
         self.lit_dash.run()
-        # begin with the brute force optimizer
+        # begin with the pipeline
+        self.pipeline.run()
+        # brute force optimizer
         # it should have some step to check for existing optimization
         # the optimization is stored in data/optimized_dma.json
         # or to begin a new optimization

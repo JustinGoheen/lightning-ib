@@ -27,17 +27,22 @@ for key in markets.keys():
         os.mkdir(os.path.join(RAWDATAPATH, key))
 
     for ticker in markets[key]:
+
         if ticker == "VIX":
             ticker = "^VIX"
 
-        tickerdata = yf.Ticker(ticker).history("max")
+        data = yf.Ticker(ticker).history("max")
+        data.index = data.index.date
+        data.reset_index(inplace=True)
+        data.rename(columns={"index": "Date"}, inplace=True)
+        data.set_index("Date", inplace=True)
 
         if ticker == "^VIX":
             ticker = "VIX"
 
-        rprint(f"[bold green]{ticker}[/bold green]: start {tickerdata.index[0]} end {tickerdata.index[-1]}")
+        rprint(f"[bold green]{ticker}[/bold green]: start {data.index[0]} end {data.index[-1]}")
 
-        tickerdatapath = os.path.join(RAWDATAPATH, key, f"{ticker}.pq")
-        tickerdata.to_parquet(tickerdatapath)
+        datapath = os.path.join(RAWDATAPATH, key, f"{ticker}.pq")
+        data.to_parquet(datapath)
 
 rprint("\n" + f"[bold cyan]DATA FETCHED[/bold cyan]" + "\n")
