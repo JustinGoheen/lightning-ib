@@ -12,9 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import lightning as L
+import os
 
+from pathlib import Path
+from ib_agent.core import BruteForceLearner
 
-class LearningWorker(L.LightningWork):
-    def run(self):
-        ...
+FILEPATH = Path(__file__)
+PROJECTPATH = FILEPATH.parents[2]
+MARKETSPATH = os.path.join(PROJECTPATH, "data", "markets")
+PROCESSEDDATAPATH = os.path.join(MARKETSPATH, "processed")
+LABELSPATH = os.path.join(PROCESSEDDATAPATH, "labels")
+
+if not os.path.isdir(os.path.join(LABELSPATH)):
+    os.mkdir(os.path.join(LABELSPATH))
+
+labels = BruteForceLearner("SPY")
+labels.to_parquet(LABELSPATH)

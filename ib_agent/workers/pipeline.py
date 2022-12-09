@@ -11,18 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import os
-from pathlib import Path
-
-import click
-
-from lightning_ib.cli.bugreport import bugreport
-from lightning_ib.cli.utils import build, common_destructive_flow, make_bug_trainer, teardown
-
-FILEPATH = Path(__file__)
-PKGPATH = FILEPATH.parents[1]
 
 
-@click.group()
-def main() -> None:
-    pass
+from ib_agent.pipeline import acquisition, preprocess, construct
+
+
+class PipelineAgent:
+    def run(self):
+        acquisition.run()
+        preprocess.run()
+        construct.run()

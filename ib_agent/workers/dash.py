@@ -3,10 +3,10 @@ import dash_bootstrap_components as dbc
 import lightning as L
 from dash import html
 from dash.dependencies import Input, Output
-from lightning_ib.components.ui import Body, NavBar
+from ib_agent.components.ui import Body, NavBar
 
 
-class DashWorker(L.LightningWork):
+class DashAgent(L.LightningWork):
     def run(self):
         """runs a Plotly Dash UI"""
         app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])

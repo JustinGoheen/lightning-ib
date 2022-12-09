@@ -36,7 +36,7 @@ A basic command line interface `trader` has been provided. The CLI commands are 
 
 ## Running as a Lightning Application
 
-Given each agent (or worker) is created as a seperate Python script or module, those modules can also be used in Lightning App Workers or ran with Lightning App's `TracerPythonScript`.
+Given each agent (or worker) is created as a seperate Python script or module, those modules can also be used in Lightning App Agents or ran with Lightning App's `TracerPythonScript`.
 
 ## Installation
 

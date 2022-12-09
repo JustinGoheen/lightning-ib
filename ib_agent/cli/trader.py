@@ -11,10 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import os
+from pathlib import Path
 
-import lightning as L
+import click
+
+from ib_agent.cli.bugreport import bugreport
+from ib_agent.cli.utils import build, common_destructive_flow, make_bug_trainer, teardown
+
+FILEPATH = Path(__file__)
+PKGPATH = FILEPATH.parents[1]
 
 
-class PipelineWorker(L.LightningWork):
-    def run(self):
-        ...
+@click.group()
+def main() -> None:
+    pass

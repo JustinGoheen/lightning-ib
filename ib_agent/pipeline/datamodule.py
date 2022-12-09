@@ -22,7 +22,7 @@ from pytorch_lightning.utilities.types import EVAL_DATALOADERS, TRAIN_DATALOADER
 from torch.utils.data import DataLoader, random_split
 from torchvision import transforms
 
-from lightning_ib.pipeline.dataset import LitDataset
+from ib_agent.pipeline.dataset import LitDataset
 
 filepath = Path(__file__)
 PROJECTPATH = os.getcwd()

@@ -16,8 +16,8 @@ from pathlib import Path
 
 import click
 
-from lightning_ib.cli.bugreport import bugreport
-from lightning_ib.cli.utils import build, common_destructive_flow, make_bug_trainer, teardown
+from ib_agent.cli.bugreport import bugreport
+from ib_agent.cli.utils import build, common_destructive_flow, make_bug_trainer, teardown
 
 FILEPATH = Path(__file__)
 PKGPATH = FILEPATH.parents[1]

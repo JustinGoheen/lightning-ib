@@ -32,23 +32,30 @@ PROCESSEDDATAPATH = os.path.join(MARKETSPATH, "processed")
 TRAININGDATADIR = os.path.join(MARKETSPATH, "training")
 TRAININGDATAPATH = os.path.join(TRAININGDATADIR, "training.pq")
 
-if not os.path.isdir(os.path.join(TRAININGDATADIR)):
-    os.mkdir(os.path.join(TRAININGDATADIR))
 
-with open(MARKETSBLOBPATH) as f:
-    markets = json.load(f)
+def run():
 
-rprint(f"[{datetime.now().time()}] CONSTRUCTING DATASET")
+    if not os.path.isdir(os.path.join(TRAININGDATADIR)):
+        os.mkdir(os.path.join(TRAININGDATADIR))
 
-trainingdataset = pd.DataFrame()
+    with open(MARKETSBLOBPATH) as f:
+        markets = json.load(f)
 
-for key in markets.keys():
-    for ticker in markets[key]:
-        processedtickerdatapath = os.path.join(PROCESSEDDATAPATH, key, f"{ticker}.pq")
-        data = pq.read_table(processedtickerdatapath).to_pandas()
-        trainingdataset = trainingdataset.join(data, how="outer")
+    rprint(f"[{datetime.now().time()}] CONSTRUCTING DATASET")
 
-trainingdataset.dropna(inplace=True)
-trainingdataset.to_parquet(TRAININGDATAPATH)
+    trainingdataset = pd.DataFrame()
 
-rprint(f"[{datetime.now().time()}] DATASET CONSTRUCTED" + "\n")
+    for key in markets.keys():
+        for ticker in markets[key]:
+            processedtickerdatapath = os.path.join(PROCESSEDDATAPATH, key, f"{ticker}.pq")
+            data = pq.read_table(processedtickerdatapath).to_pandas()
+            trainingdataset = trainingdataset.join(data, how="outer")
+
+    trainingdataset.dropna(inplace=True)
+    trainingdataset.to_parquet(TRAININGDATAPATH)
+
+    rprint(f"[{datetime.now().time()}] DATASET CONSTRUCTED" + "\n")
+
+
+if __name__ == "__main__":
+    run()
