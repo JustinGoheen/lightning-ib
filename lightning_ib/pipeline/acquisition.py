@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
 import json
-import yfinance as yf
-
+import os
 from datetime import datetime
 from pathlib import Path
+
+import yfinance as yf
 from rich import print as rprint
 from rich.progress import Progress
 

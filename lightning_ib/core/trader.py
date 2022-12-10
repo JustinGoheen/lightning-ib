@@ -13,6 +13,6 @@
 # limitations under the License.
 
 import os
-import ib_insync as ibi
-
 from pathlib import Path
+
+import ib_insync as ibi

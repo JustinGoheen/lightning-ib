@@ -14,17 +14,16 @@
 
 # use this to create a preprocessing script if needed
 
-import os
 import json
-
+import os
+from datetime import datetime
 from pathlib import Path
+
+from pyarrow import parquet as pq
 from rich import print as rprint
 from rich.progress import Progress
-from pyarrow import parquet as pq
-from datetime import datetime
 
 from lightning_ib.metrics import factors
-
 
 FILEPATH = Path(__file__)
 PROJECTPATH = FILEPATH.parents[2]

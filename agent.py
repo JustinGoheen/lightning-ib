@@ -14,12 +14,11 @@
 
 import os
 import sys
-import lightning as L
-
 from pathlib import Path
 
+import lightning as L
 
-from lightning_ib.agents import PipelineAgent, BruteAgent, LearningAgent, TradingAgent
+from lightning_ib.agents import BruteAgent, LearningAgent, PipelineAgent, TradingAgent
 
 
 class MasterAgent(L.LightningFlow):

@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import lightning as L
-
 from datetime import datetime
+
+import lightning as L
 from rich import print as rprint
 
-from lightning_ib.pipeline import acquisition, preprocess, construct
+from lightning_ib.pipeline import acquisition, construct, preprocess
 
 
 class PipelineAgent(L.LightningWork):

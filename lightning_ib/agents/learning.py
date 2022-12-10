@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import lightning as L
-
 from datetime import datetime
+
+import lightning as L
 from rich import print as rprint
 
 

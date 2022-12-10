@@ -15,14 +15,14 @@
 
 # use this to construct the training dataset that will be used by dataset.py
 
-import os
 import json
-import pandas as pd
-
-from pyarrow import parquet as pq
-from pathlib import Path
-from rich import print as rprint
+import os
 from datetime import datetime
+from pathlib import Path
+
+import pandas as pd
+from pyarrow import parquet as pq
+from rich import print as rprint
 
 FILEPATH = Path(__file__)
 PROJECTPATH = FILEPATH.parents[2]

@@ -13,8 +13,8 @@
 # limitations under the License.
 
 import os
-
 from pathlib import Path
+
 from lightning_ib.core import BruteForceLearner
 
 FILEPATH = Path(__file__)
