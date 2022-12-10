@@ -17,7 +17,7 @@ from pathlib import Path
 
 import torch
 
-from ib_agent.pipeline.datamodule import LitDataModule
+from lightning_ib.pipeline.datamodule import LitDataModule
 
 
 def test_module_not_abstract():

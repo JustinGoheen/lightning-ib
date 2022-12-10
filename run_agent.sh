@@ -1,1 +1,1 @@
-python master_agent.py
+lightning run app agent.py --open-ui=False --without-server

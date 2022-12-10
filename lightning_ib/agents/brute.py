@@ -11,18 +11,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import os
-from pathlib import Path
 
-import click
+import lightning as L
 
-from ib_agent.cli.bugreport import bugreport
-from ib_agent.cli.utils import build, common_destructive_flow, make_bug_trainer, teardown
+from datetime import datetime
+from rich import print as rprint
 
-FILEPATH = Path(__file__)
-PKGPATH = FILEPATH.parents[1]
+from lightning_ib.core import brute
 
 
-@click.group()
-def main() -> None:
-    pass
+class BruteAgent(L.LightningWork):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def run(self):
+        """runs a brute force optimizer"""
+        rprint(f"[{datetime.now().time()}] {self.__class__.__name__} STARTING")
+        rprint(f"[{datetime.now().time()}] {self.__class__.__name__} WORKING")
+        rprint(f"[{datetime.now().time()}] {self.__class__.__name__} COMPLETE")

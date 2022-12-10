@@ -20,8 +20,8 @@ import torch
 from omegaconf.dictconfig import DictConfig
 from torch.utils.data import TensorDataset
 
-from ib_agent.core.module import LitModel
-from ib_agent.pipeline.datamodule import LitDataModule
+from lightning_ib.core.module import LitModel
+from lightning_ib.pipeline.datamodule import LitDataModule
 from pytorch_lightning import seed_everything, Trainer
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
 from pytorch_lightning.loggers import TensorBoardLogger

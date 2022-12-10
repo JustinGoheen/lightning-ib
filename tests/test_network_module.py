@@ -14,7 +14,7 @@
 
 import torch
 
-from ib_agent.core.module import Decoder, Encoder, LitModel
+from lightning_ib.core.module import Decoder, Encoder, LitModel
 
 
 def test_module_not_abstract():

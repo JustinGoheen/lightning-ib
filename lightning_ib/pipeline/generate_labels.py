@@ -12,12 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
 
-from ib_agent.pipeline import acquisition, preprocess, construct
+from pathlib import Path
+from lightning_ib.core import BruteForceLearner
 
+FILEPATH = Path(__file__)
+PROJECTPATH = FILEPATH.parents[2]
+MARKETSPATH = os.path.join(PROJECTPATH, "data", "markets")
+PROCESSEDDATAPATH = os.path.join(MARKETSPATH, "processed")
+LABELSPATH = os.path.join(PROCESSEDDATAPATH, "labels")
 
-class PipelineAgent:
-    def run(self):
-        acquisition.run()
-        preprocess.run()
-        construct.run()
+if not os.path.isdir(os.path.join(LABELSPATH)):
+    os.mkdir(os.path.join(LABELSPATH))
+
+labels = BruteForceLearner("SPY")
+labels.to_parquet(LABELSPATH)

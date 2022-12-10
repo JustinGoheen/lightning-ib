@@ -14,10 +14,20 @@
 
 import lightning as L
 
+from datetime import datetime
+from rich import print as rprint
 
-class LearningAgent(L.LightningWork):
+from lightning_ib.pipeline import acquisition, preprocess, construct
+
+
+class PipelineAgent(L.LightningWork):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def run(self):
-        # do hpo
-        # optimize
-        #   test and collect strategy returns during optimization
-        ...
+        rprint(f"[{datetime.now().time()}] {self.__class__.__name__} STARTING")
+        rprint(f"[{datetime.now().time()}] {self.__class__.__name__} WORKING")
+        acquisition.run()
+        preprocess.run()
+        construct.run()
+        rprint(f"[{datetime.now().time()}] {self.__class__.__name__} COMPLETE")

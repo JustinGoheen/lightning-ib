@@ -12,19 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
+import lightning as L
+from datetime import datetime
+from rich import print as rprint
+from lightning_ib.core import trader
 
-from pathlib import Path
-from ib_agent.core import BruteForceLearner
 
-FILEPATH = Path(__file__)
-PROJECTPATH = FILEPATH.parents[2]
-MARKETSPATH = os.path.join(PROJECTPATH, "data", "markets")
-PROCESSEDDATAPATH = os.path.join(MARKETSPATH, "processed")
-LABELSPATH = os.path.join(PROCESSEDDATAPATH, "labels")
+class TradingAgent(L.LightningWork):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
-if not os.path.isdir(os.path.join(LABELSPATH)):
-    os.mkdir(os.path.join(LABELSPATH))
-
-labels = BruteForceLearner("SPY")
-labels.to_parquet(LABELSPATH)
+    def run(self):
+        """runs an ib_insync script"""
+        rprint(f"[{datetime.now().time()}] {self.__class__.__name__} STARTING")
+        rprint(f"[{datetime.now().time()}] {self.__class__.__name__} WORKING")
+        rprint(f"[{datetime.now().time()}] {self.__class__.__name__} COMPLETE")

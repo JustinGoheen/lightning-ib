@@ -16,8 +16,10 @@ import os
 import json
 import yfinance as yf
 
+from datetime import datetime
 from pathlib import Path
 from rich import print as rprint
+from rich.progress import Progress
 
 FILEPATH = Path(__file__)
 PROJECTPATH = FILEPATH.parents[2]
@@ -34,35 +36,35 @@ def run():
     with open(MARKETSBLOBPATH) as f:
         markets = json.load(f)
 
-    rprint("\n" + f"[bold cyan]FETCHING DATA[/bold cyan]" + "\n")
+    rprint(f"[{datetime.now().time()}]FETCHING DATA")
 
-    for key in markets.keys():
+    with Progress() as progress:
+        for key in markets.keys():
+            task = progress.add_task(f"FETCHING {key.upper()}", total=len(markets[key]))
 
-        rprint(f"[bold white]{key.upper()}[/bold white]")
+            if not os.path.isdir(os.path.join(RAWDATAPATH, key)):
+                os.mkdir(os.path.join(RAWDATAPATH, key))
 
-        if not os.path.isdir(os.path.join(RAWDATAPATH, key)):
-            os.mkdir(os.path.join(RAWDATAPATH, key))
+            for ticker in markets[key]:
 
-        for ticker in markets[key]:
+                if ticker == "VIX":
+                    ticker = "^VIX"
 
-            if ticker == "VIX":
-                ticker = "^VIX"
+                data = yf.Ticker(ticker).history("max")
+                data.index = data.index.date
+                data.reset_index(inplace=True)
+                data.rename(columns={"index": "Date"}, inplace=True)
+                data.set_index("Date", inplace=True)
 
-            data = yf.Ticker(ticker).history("max")
-            data.index = data.index.date
-            data.reset_index(inplace=True)
-            data.rename(columns={"index": "Date"}, inplace=True)
-            data.set_index("Date", inplace=True)
+                if ticker == "^VIX":
+                    ticker = "VIX"
 
-            if ticker == "^VIX":
-                ticker = "VIX"
+                datapath = os.path.join(RAWDATAPATH, key, f"{ticker}.pq")
+                data.to_parquet(datapath)
 
-            rprint(f"[bold green]{ticker}[/bold green]: start {data.index[0]} end {data.index[-1]}")
+                progress.advance(task)
 
-            datapath = os.path.join(RAWDATAPATH, key, f"{ticker}.pq")
-            data.to_parquet(datapath)
-
-    rprint("\n" + f"[bold cyan]DATA FETCHED[/bold cyan]" + "\n")
+    rprint(f"[{datetime.now().time()}] DATA FETCHED")
 
 
 if __name__ == "__main__":

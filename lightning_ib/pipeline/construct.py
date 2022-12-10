@@ -54,7 +54,7 @@ def run():
     trainingdataset.dropna(inplace=True)
     trainingdataset.to_parquet(TRAININGDATAPATH)
 
-    rprint(f"[{datetime.now().time()}] DATASET CONSTRUCTED" + "\n")
+    rprint(f"[{datetime.now().time()}] DATASET CONSTRUCTED")
 
 
 if __name__ == "__main__":

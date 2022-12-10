@@ -21,7 +21,7 @@ import torch
 from dash import dash_table, dcc, html
 from pytorch_lightning.utilities.model_summary import ModelSummary
 
-from ib_agent.core.module import LitModel
+from lightning_ib.core.module import LitModel
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
