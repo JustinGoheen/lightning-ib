@@ -18,32 +18,22 @@ from pathlib import Path
 
 import lightning as L
 
-from lightning_ib.agents import BruteAgent, LearningAgent, PipelineAgent, TradingAgent
+from lightning_ib.agents import LearningAgent, PipelineAgent, TradingAgent
 
 
-class MasterAgent(L.LightningFlow):
+class Agent(L.LightningFlow):
     def __init__(self, *args, **kwargs):
         super().__init__()
         self.counter = 0
         self.pipeline = PipelineAgent()
-        self.brute = BruteAgent()
         self.learner = LearningAgent()
         self.trader = TradingAgent()
 
     def run(self):
 
-        # pipeline
+        # pipeline performs data acquisition, preprocessing, label generation with BFO
         self.pipeline.run()
 
-        # brute force optimizer
-        # it should have some step to check for existing optimization
-        # the optimization is stored in data/optimized_dma.json
-        # or to begin a new optimization
-        # the purpose of this optimization is to create a dual moving average pair
-        # as labels for the learning agent, a logistic regression classifier
-        self.brute.run()
-
-        # the learning agent will receive a prompt from brute
         # the learner will learn a binary problem
         # the learner performs hpo with lightning-hpo
         # the learner logs with wandb
@@ -57,4 +47,4 @@ class MasterAgent(L.LightningFlow):
         sys.exit()
 
 
-app = L.LightningApp(MasterAgent())
+app = L.LightningApp(Agent())

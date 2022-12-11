@@ -13,6 +13,8 @@
 # limitations under the License.
 
 import numpy as np
+import pandas as pd
+import quantstats as qs
 import talib as ta
 
 
@@ -57,3 +59,14 @@ def expanding_rank(series):
 def rolling_rank(series, period=252):
     """forms the rolling percentile rank of the input vector"""
     return series.rolling(period).rank(pct=True)
+
+
+def strategy_metrics(returns):
+
+    data = returns.copy()
+    data.index = pd.to_datetime(data.index)
+
+    metrics = qs.reports.metrics(data, display=False).T
+    metrics.rename(columns={"CAGR﹪": "CAGR", "Sortino/√2": "Adjusted Sortino"}, inplace=True)
+
+    return metrics

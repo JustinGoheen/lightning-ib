@@ -17,7 +17,8 @@ from datetime import datetime
 import lightning as L
 from rich import print as rprint
 
-from lightning_ib.pipeline import acquisition, construct, preprocess
+from lightning_ib.core import BruteForceLearner
+from lightning_ib.pipeline import acquisition, generate_features, preprocess, generate_labels
 
 
 class PipelineAgent(L.LightningWork):
@@ -25,9 +26,10 @@ class PipelineAgent(L.LightningWork):
         super().__init__(**kwargs)
 
     def run(self):
-        rprint(f"[{datetime.now().time()}] {self.__class__.__name__} STARTING")
-        rprint(f"[{datetime.now().time()}] {self.__class__.__name__} WORKING")
+        rprint(f"[{datetime.now().time()}][bold green] {self.__class__.__name__} STARTING[/bold green]")
         acquisition.run()
         preprocess.run()
-        construct.run()
-        rprint(f"[{datetime.now().time()}] {self.__class__.__name__} COMPLETE")
+        generate_features.run()
+        BruteForceLearner().optimize()
+        generate_labels.run()
+        rprint(f"[{datetime.now().time()}][bold red] {self.__class__.__name__} COMPLETE[/bold red]")

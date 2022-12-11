@@ -41,7 +41,7 @@ def run():
     with open(MARKETSBLOBPATH) as f:
         markets = json.load(f)
 
-    rprint(f"[{datetime.now().time()}] CONSTRUCTING DATASET")
+    rprint(f"[{datetime.now().time()}] GENERATING FEATURES")
 
     trainingdataset = pd.DataFrame()
 
@@ -54,7 +54,7 @@ def run():
     trainingdataset.dropna(inplace=True)
     trainingdataset.to_parquet(TRAININGDATAPATH)
 
-    rprint(f"[{datetime.now().time()}] DATASET CONSTRUCTED")
+    rprint(f"[{datetime.now().time()}] FEATURES GENERATED")
 
 
 if __name__ == "__main__":

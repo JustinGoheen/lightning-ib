@@ -26,6 +26,5 @@ class TradingAgent(L.LightningWork):
 
     def run(self):
         """runs an ib_insync script"""
-        rprint(f"[{datetime.now().time()}] {self.__class__.__name__} STARTING")
-        rprint(f"[{datetime.now().time()}] {self.__class__.__name__} WORKING")
-        rprint(f"[{datetime.now().time()}] {self.__class__.__name__} COMPLETE")
+        rprint(f"[{datetime.now().time()}][bold green] {self.__class__.__name__} STARTING[/bold green] ")
+        rprint(f"[{datetime.now().time()}][bold red] {self.__class__.__name__} COMPLETE[/bold red] ")

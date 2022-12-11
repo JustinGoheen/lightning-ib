@@ -36,7 +36,7 @@ def run():
     with open(MARKETSBLOBPATH) as f:
         markets = json.load(f)
 
-    rprint(f"[{datetime.now().time()}]FETCHING DATA")
+    rprint(f"[{datetime.now().time()}] FETCHING DATA")
 
     with Progress() as progress:
         for key in markets.keys():

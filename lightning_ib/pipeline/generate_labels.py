@@ -13,18 +13,28 @@
 # limitations under the License.
 
 import os
+import pandas as pd
+import numpy as np
+from datetime import datetime
 from pathlib import Path
-
-from lightning_ib.core import BruteForceLearner
+from rich import print as rprint
 
 FILEPATH = Path(__file__)
 PROJECTPATH = FILEPATH.parents[2]
-MARKETSPATH = os.path.join(PROJECTPATH, "data", "markets")
-PROCESSEDDATAPATH = os.path.join(MARKETSPATH, "processed")
-LABELSPATH = os.path.join(PROCESSEDDATAPATH, "labels")
+OPTIMIZEDDMAPATH = os.path.join(PROJECTPATH, "data", "optimized_dma.pq")
+SPYDATAPATH = os.path.join(PROJECTPATH, "data", "markets", "raw", "equities", "SPY.pq")
+LABELSPATH = os.path.join("data", "labels.pq")
 
-if not os.path.isdir(os.path.join(LABELSPATH)):
-    os.mkdir(os.path.join(LABELSPATH))
 
-labels = BruteForceLearner("SPY")
-labels.to_parquet(LABELSPATH)
+def run():
+    rprint(f"[{datetime.now().time()}] GENERATING LABELS")
+    marketdata = pd.read_parquet(SPYDATAPATH, columns=["Close"])
+    optimizeddma = pd.read_parquet(OPTIMIZEDDMAPATH)
+    marketdata["Fast"] = marketdata["Close"].rolling(optimizeddma["Fast"].iloc[0]).mean()
+    marketdata["Slow"] = marketdata["Close"].rolling(optimizeddma["Slow"].iloc[0]).mean()
+    marketdata["Label"] = np.where(marketdata["Fast"] >= marketdata["Slow"], 1, 0)
+    marketdata[["Label"]].to_parquet(LABELSPATH)
+
+
+if __name__ == "__main__":
+    run()
