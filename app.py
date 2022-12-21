@@ -14,14 +14,22 @@
 
 import os
 import sys
-from pathlib import Path
+import platform
 
 import lightning as L
 
 from lightning_ib.agents import LearningAgent, PipelineAgent, TradingAgent
+from lightning_ib.install_ibc import ibc_installer
+
+if platform.system() == "Linux":
+
+    for script in ["install_gateway.sh", "install_talib.sh"]:
+        os.system(f"bash {script}")
+
+    ibc_installer.run()
 
 
-class Agent(L.LightningFlow):
+class RootFlow(L.LightningFlow):
     def __init__(self, *args, **kwargs):
         super().__init__()
         self.counter = 0
@@ -47,4 +55,4 @@ class Agent(L.LightningFlow):
         sys.exit()
 
 
-app = L.LightningApp(Agent())
+app = L.LightningApp(RootFlow())
