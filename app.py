@@ -21,13 +21,6 @@ import lightning as L
 from lightning_ib.agents import LearningAgent, PipelineAgent, TradingAgent
 from lightning_ib.install_ibc import ibc_installer
 
-if platform.system() == "Linux":
-
-    for script in ["install_gateway.sh", "install_talib.sh"]:
-        os.system(f"bash {script}")
-
-    ibc_installer.run()
-
 
 class RootFlow(L.LightningFlow):
     def __init__(self, *args, **kwargs):
