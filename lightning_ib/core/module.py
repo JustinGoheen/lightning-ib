@@ -1,13 +1,13 @@
 # code is based on the following
 # https://github.com/Lightning-AI/lightning-bolts/blob/master/pl_bolts/models/regression/logistic_regression.py
 
-import pytorch_lightning as pl
+import lightning as L
 import torch.nn.functional as F
 from torch import nn, optim
 from torchmetrics.functional import accuracy
 
 
-class LitModel(pl.LightningModule):
+class LitModel(L.LightningModule):
     """a custom PyTorch Lightning LightningModule"""
 
     def __init__(
