@@ -6,6 +6,8 @@
 
 A Lightning AI Application for Interactive Brokers
 
+:warning: **DO NOT RUN THIS IN LIGHTNING CLOUD** :warning:
+
 </div>
 
 ## Overview
