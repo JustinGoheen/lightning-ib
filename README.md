@@ -40,7 +40,7 @@ After forking and cloning the repo, do the following in terminal:
 
 ```bash
 cd {{ path to clone }}
-python3 -m venv .venv
+python3 -m venv .venv/
 #assumes mac or linux
 source .venv/bin/activate
 pip install -e ".[dev]"
