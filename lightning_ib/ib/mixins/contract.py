@@ -16,7 +16,10 @@ from abc import ABC
 from typing import Any, Callable, Dict, List, Union
 
 import ib_insync as ib
-from ibquant.exceptions import ContractException
+
+
+class ContractException(Exception):
+    """informs user of a misconfigured contract state"""
 
 
 class ContractMixins(ABC):
