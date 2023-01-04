@@ -79,7 +79,7 @@ Given each agent (or worker) is created as a seperate Python script or module, t
 
 Running the Lightning application will:
 
-- fetch using [yfinance](https://github.com/ranaroussi/yfinance)
+- fetch historical data using [yfinance](https://github.com/ranaroussi/yfinance)
 - pre-process data with Pandas
 - create and store a directory of data files in Apache parquet file format
 - do feature (factor) engineering
