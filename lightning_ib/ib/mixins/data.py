@@ -22,7 +22,6 @@ import pandas as pd
 from rich import print as rprint
 
 import ib_insync as ib
-from ibquant.markets import EquityFutureFrontMonth
 
 
 class DataMixins(ABC):
@@ -71,67 +70,6 @@ class DataMixins(ABC):
         ib.util.sleep(5)
 
         return data
-
-    def _process_bars(self):
-        """used to process bars to make dataframe"""
-        pass
-
-    def historical_ticks(
-        self,
-        start_date_time: str = "20210319 09:30:00",
-        end_date_time: str = "",
-        number_of_ticks: int = 1000,  # max is 1000
-        what_to_show: str = "TRADES",  # TRADES, MIDPOINT, BID, ASK, BID_ASK
-        ignore_size: bool = False,
-        use_rth: bool = True,
-    ):
-        """fetches historical ticks"""
-
-        data = self.ib.reqHistoricalTicks(
-            self.contract,
-            startDateTime=start_date_time,
-            endDateTime=end_date_time,
-            numberOfTicks=number_of_ticks,
-            whatToShow=what_to_show,
-            useRth=use_rth,
-            ignoreSize=ignore_size,
-        )
-
-        time.sleep(60)
-
-        return data
-
-    def _process_ticks(self):
-        """used to process ticks for dataframe"""
-        pass
-
-    def histogram(
-        self,
-        use_rth: bool = False,
-        period: str = "15 min",
-    ):
-        """
-        fetches a historical histogram of volume at price
-
-        Note:
-            https://ib-insync.readthedocs.io/api.html#ib_insync.ib.IB.reqHistoricalTicks
-            http://interactivebrokers.github.io/tws-api/historical_time_and_sales.html#reqHistoricalTicks
-        """
-
-        data = self.ib.reqHistogramData(
-            self.contract,
-            use_rth,
-            period,
-        )
-
-        rprint(f"[bold green][FETCHING HISTOGRAM][/bold green] {datetime.datetime.now()}")
-
-        ib.util.sleep(60)
-
-        return data
-
-    def news(self):
-        pass
 
     def to_dataframe(self, data, use_cols: Optional[List[str]] = None):
         return ib.util.df(data, labels=use_cols)
