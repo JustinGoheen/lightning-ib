@@ -14,7 +14,7 @@ A Lightning AI Application for the Interactive Brokers TWS API
 
 The intent of this project is to create boilerplate for an [IBKR](https://www.interactivebrokers.com/en/home.php) trading application powered by [Lightning.ai](https://lightning.ai); the intent does not include creating a profitable strategy. In other words, this project serves as a template for IBKR customers who are proficient enough in Python that they can take this template and build on it, using [ib_insync](https://lightning.ai) and the Lightning ecosystem.
 
-By switching the TWS port from paper trading to live trading, then running and deploying this template in live trading, you assume full liability.
+**_By switching the TWS port from paper trading to live trading, then running and deploying this template in live trading, you assume full liability._**
 
 ## Overview
 
