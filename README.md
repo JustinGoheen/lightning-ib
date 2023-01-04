@@ -138,7 +138,7 @@ Running the Lightning application will:
 - trains the model to find a "best" set of weights
   - uses [wandb](https://github.com/JustinGoheen/lightning-ib) for experiment tracking
 - takes an action based on the model's decision on today's input:
-  - if trade signal is received: initiates a paper trading session with TWS using [IBC](https://github.com/IbcAlpha/IBC)
+  - if trade signal is received: initiates a paper trading session with TWS (TWS must already be running)
   - else: shuts down
 
 > over and under fitting, and concept drift are not accounted for
