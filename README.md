@@ -51,7 +51,10 @@ source .venv/bin/activate
 pip install -e .
 ```
 
-A set off dev and doc support extras have been provided. The optional extras can be viewed in `setup.cfg`.
+<details>
+  <summary>Installing Extras</summary>
+
+A set of dev and doc support extras have been provided. The optional extras can be viewed in `setup.cfg`.
 
 To install both sets of extras do the following in terminal:
 
@@ -79,6 +82,8 @@ python3 -m venv .venv/
 source .venv/bin/activate
 pip install -e ".[docs]"
 ```
+
+</details>
 
 Following completion of one of the above, test the install with the following in terminal:
 
