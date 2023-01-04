@@ -75,7 +75,7 @@ A basic command line interface `trader` has been provided. The CLI commands are 
 
 ## Running as a Lightning Application
 
-Given each agent (or worker) is created as a seperate Python script or module, those modules can ran individually from the command line, or by using the main module `app.py` found in the project's root directory. A handy bash script has been provided in `scripts/`.
+Given each agent (or worker) is created as a seperate Python script or module, those modules can be ran individually from the command line, or by using the main module `app.py` found in the project's root directory. A handy bash script has been provided in `scripts/`.
 
 Running the Lightning application will:
 
@@ -88,6 +88,7 @@ Running the Lightning application will:
 - create a LightningDataSet and LightningDataModule
 - performs hyper parameter optimization with Lightning Training Studio
 - trains the model to find a "best" set of weights
+  - uses [wandb](https://github.com/JustinGoheen/lightning-ib) for experiment tracking
 - takes an action based on the model's decision on today's input:
   - if trade signal is received: initiates a paper trading session with TWS using [IBC](https://github.com/IbcAlpha/IBC)
   - else: shuts down
