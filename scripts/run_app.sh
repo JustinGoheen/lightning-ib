@@ -1,1 +1,1 @@
-lightning run app agent.py --open-ui=False --without-server
+lightning run app app.py --open-ui=False --without-server
