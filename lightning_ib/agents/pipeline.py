@@ -18,7 +18,7 @@ import lightning as L
 from rich import print as rprint
 
 from lightning_ib.core import BruteForceLearner
-from lightning_ib.pipeline import acquisition, generate_features, preprocess, generate_labels
+from lightning_ib.pipeline import acquisition, generate_features, generate_labels, preprocess
 
 
 class PipelineAgent(L.LightningWork):

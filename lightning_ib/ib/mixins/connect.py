@@ -14,9 +14,8 @@
 
 from abc import ABC
 
-import numpy as np
-
 import ib_insync as ib
+import numpy as np
 
 
 class ConnectionMixins(ABC):

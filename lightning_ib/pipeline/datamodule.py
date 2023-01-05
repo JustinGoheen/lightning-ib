@@ -15,12 +15,11 @@
 import multiprocessing
 import os
 from pathlib import Path
-from typing import Any, Callable, Union
+from typing import Any, Union
 
-from pytorch_lightning import LightningDataModule
-from pytorch_lightning.utilities.types import EVAL_DATALOADERS, TRAIN_DATALOADERS
+from lightning.pytorch import LightningDataModule
+from lightning.pytorch.utilities.types import EVAL_DATALOADERS, TRAIN_DATALOADERS
 from torch.utils.data import DataLoader, random_split
-from torchvision import transforms
 
 from lightning_ib.pipeline.dataset import LitDataset
 
@@ -37,7 +36,6 @@ class LitDataModule(LightningDataModule):
         split: bool = True,
         train_size: float = 0.8,
         num_workers: int = NUMWORKERS,
-        transforms: Callable = transforms.ToTensor(),
     ):
         super().__init__()
         self.data_dir = os.path.join(PROJECTPATH, data_dir, "cache")
@@ -45,19 +43,18 @@ class LitDataModule(LightningDataModule):
         self.split = split
         self.train_size = train_size
         self.num_workers = num_workers
-        self.transforms = transforms
 
     def prepare_data(self) -> None:
-        self.dataset(self.data_dir, download=True)
+        self.dataset()
 
     def setup(self, stage: Union[str, None] = None) -> None:
         if stage == "fit" or stage is None:
-            full_dataset = self.dataset(self.data_dir, train=True, transform=self.transforms)
+            full_dataset = self.dataset()
             train_size = int(len(full_dataset) * self.train_size)
             test_size = len(full_dataset) - train_size
             self.train_data, self.val_data = random_split(full_dataset, lengths=[train_size, test_size])
         if stage == "test" or stage is None:
-            self.test_data = self.dataset(self.data_dir, train=False, transform=self.transforms)
+            self.test_data = self.dataset()
 
     def train_dataloader(self) -> TRAIN_DATALOADERS:
         return DataLoader(self.train_data, num_workers=self.num_workers)

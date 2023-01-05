@@ -25,11 +25,18 @@ class LitModel(L.LightningModule):
         self.bias = bias
         self.l1_strength = l1_strength
         self.l2_strength = l2_strength
+        super().__init__()
         self.save_hyperparameters()
+
+        self.linear = nn.Linear(
+            in_features=self.hparams.input_dim,
+            out_features=self.hparams.num_classes,
+            bias=self.bias,
+        )
 
     def forward(self, x):
         x = x.view(x.size(0), -1)
-        x = nn.Linear(x)
+        x = self.linear(x)
         y_hat = F.softmax(x)
         return y_hat
 

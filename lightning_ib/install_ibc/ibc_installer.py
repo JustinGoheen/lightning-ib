@@ -20,7 +20,6 @@
 import os
 import platform
 import zipfile
-
 from functools import partial
 from urllib.request import urlopen
 

@@ -13,8 +13,8 @@
 # limitations under the License.
 
 import os
-import sys
 import platform
+import sys
 
 import lightning as L
 

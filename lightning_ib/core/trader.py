@@ -18,10 +18,10 @@ import os
 import sys
 from typing import Any, Dict, Optional
 
+import ib_insync as ib
 import pytz
 from rich import print as rprint
 
-import ib_insync as ib
 from lightning_ib.ib.base import AppBase
 
 

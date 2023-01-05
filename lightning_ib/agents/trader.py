@@ -14,8 +14,8 @@
 
 from datetime import datetime
 
-import lightning as L
 import ib_insync as ib
+import lightning as L
 from rich import print as rprint
 
 from lightning_ib.core import Trader

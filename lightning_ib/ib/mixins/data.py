@@ -17,11 +17,10 @@ import time
 from abc import ABC
 from typing import List, Optional
 
+import ib_insync as ib
 import numpy as np
 import pandas as pd
 from rich import print as rprint
-
-import ib_insync as ib
 
 
 class DataMixins(ABC):

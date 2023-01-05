@@ -30,7 +30,7 @@ MARKETSPATH = os.path.join(PROJECTPATH, "data", "markets")
 MARKETSBLOBPATH = os.path.join(MARKETSPATH, "markets.json")
 PROCESSEDDATAPATH = os.path.join(MARKETSPATH, "processed")
 TRAININGDATADIR = os.path.join(MARKETSPATH, "training")
-TRAININGDATAPATH = os.path.join(TRAININGDATADIR, "training.pq")
+FEATURESPATH = os.path.join(TRAININGDATADIR, "features.pq")
 
 
 def run():
@@ -52,7 +52,7 @@ def run():
             trainingdataset = trainingdataset.join(data, how="outer")
 
     trainingdataset.dropna(inplace=True)
-    trainingdataset.to_parquet(TRAININGDATAPATH)
+    trainingdataset.to_parquet(FEATURESPATH)
 
     rprint(f"[{datetime.now().time()}] FEATURES GENERATED")
 

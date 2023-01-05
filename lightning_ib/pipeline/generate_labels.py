@@ -13,10 +13,11 @@
 # limitations under the License.
 
 import os
-import pandas as pd
-import numpy as np
 from datetime import datetime
 from pathlib import Path
+
+import numpy as np
+import pandas as pd
 from rich import print as rprint
 
 FILEPATH = Path(__file__)

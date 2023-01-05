@@ -15,6 +15,7 @@
 from typing import Optional
 
 import ib_insync as ib
+
 from lightning_ib.ib.mixins import AccountMixins, AdvisorMixins, ConnectionMixins, ContractMixins, DataMixins
 
 
