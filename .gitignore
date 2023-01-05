@@ -142,7 +142,9 @@ dmypy.json
 outputs/
 
 # data
-data/markets/*
+data/markets/processed/
+data/markets/raw/
+data/markets/training
 
 # ibc
 ibc

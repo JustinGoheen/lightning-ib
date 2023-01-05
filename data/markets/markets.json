@@ -1,0 +1,49 @@
+{
+    "equities": [
+        "SPY",
+        "EWJ",
+        "VGK",
+        "EEM"
+    ],
+    "sectors": [
+        "XSD",
+        "XRT",
+        "XPH",
+        "XOP",
+        "XME",
+        "XLY",
+        "XLV",
+        "XLU",
+        "XLP",
+        "XLK",
+        "XLI",
+        "XLF",
+        "XLE",
+        "XLB",
+        "XHB",
+        "XES",
+        "XBI"
+    ],
+    "treasuries": [
+        "TLT",
+        "IEF",
+        "IEI",
+        "SHY",
+        "BIL"
+    ],
+    "currencies": [
+        "FXF",
+        "FXY",
+        "FXE",
+        "UUP"
+    ],
+    "vol": [
+        "VIX"
+    ],
+    "metals": [
+        "GLD"
+    ],
+    "softs": [
+        "USO"
+    ]
+}
