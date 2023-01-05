@@ -28,7 +28,7 @@ from lightning_ib.metrics.factors import log_returns, strategy_metrics
 FILEPATH = Path(__file__)
 PROJECTPATH = FILEPATH.parents[2]
 SPYDATAPATH = os.path.join(PROJECTPATH, "data", "markets", "raw", "equities", "SPY.pq")
-RESULTSPATH = os.path.join(PROJECTPATH, "logs", "brute_force_results.csv")
+RESULTSPATH = os.path.join(PROJECTPATH, "logs", "bf_optimizer", "results.csv")
 OPTIMIZEDDMAPATH = os.path.join(PROJECTPATH, "data", "optimized_dma.pq")
 
 
