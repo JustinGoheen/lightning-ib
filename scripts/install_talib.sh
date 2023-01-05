@@ -6,4 +6,3 @@ cd ta-lib/
 make
 sudo make install
 cd ..
-pip install ta-lib

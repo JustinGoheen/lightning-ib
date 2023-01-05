@@ -15,16 +15,21 @@
 from datetime import datetime
 
 import lightning as L
+import ib_insync as ib
 from rich import print as rprint
 
-from lightning_ib.core import trader
+from lightning_ib.core import Trader
 
 
 class TradingAgent(L.LightningWork):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, trader_args, trader_kwargs, work_kwargs):
+        super().__init__(**work_kwargs)
+        self.trader = Trader(*trader_args, **trader_kwargs)
 
     def run(self):
         """runs an ib_insync script"""
         rprint(f"[{datetime.now().time()}][bold green] {self.__class__.__name__} STARTING[/bold green] ")
+        self.trader.run()
+        ib.util.sleep(5)
+        self.trader.stop()
         rprint(f"[{datetime.now().time()}][bold red] {self.__class__.__name__} COMPLETE[/bold red] ")

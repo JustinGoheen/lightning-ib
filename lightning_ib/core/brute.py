@@ -61,6 +61,7 @@ class BruteForceLearner:
         with Progress() as progress:
             task = progress.add_task(f"BRUTE FORCE OPTIMIZATION", total=len(fast_range) * len(slow_range))
 
+            # TODO make this faster
             for fast, slow in product(fast_range, slow_range):
                 testdata = self.rawdata.copy()
                 if fast != slow:  # account for 50, 50 overlap
