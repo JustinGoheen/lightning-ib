@@ -6,7 +6,7 @@
 
 A Lightning AI Application for the Interactive Brokers TWS API
 
-:warning: **FOR LOCAL USE ONLY. DO NOT RUN THIS IN LIGHTNING CLOUD** :warning:
+:warning: **FOR LOCAL USE ONLY. DO NOT RUN TRADING APPS IN LIGHTNING CLOUD** :warning:
 
 </div>
 
