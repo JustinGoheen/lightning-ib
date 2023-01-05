@@ -19,6 +19,7 @@ class LitModel(L.LightningModule):
         bias=True,
         l1_strength=0.0,
         l2_strength=0.0,
+        accuracy_task="binary",
     ):
         self.input_dim = input_dim
         self.num_classes = num_classes
@@ -26,6 +27,7 @@ class LitModel(L.LightningModule):
         self.bias = bias
         self.l1_strength = l1_strength
         self.l2_strength = l2_strength
+        self.accuracy_task = accuracy_task
         super().__init__()
         self.save_hyperparameters()
 
@@ -67,10 +69,12 @@ class LitModel(L.LightningModule):
         x, y = batch["features"], batch["labels"]
         x = x.view(x.size(0), -1)
         y_hat = self.linear(x)
-        y = torch.flatten(y)
-        # acc = accuracy(F.softmax(y_hat, -1), y, "binary")
-        loss = F.cross_entropy(y_hat, y, reduction="sum")
+        softmax = F.log_softmax(y_hat, -1)
+        argmax = torch.argmax(softmax).reshape(1, -1)
+        acc = accuracy(argmax, y, self.accuracy_task)
+        loss = F.cross_entropy(y_hat, torch.flatten(y), reduction="sum")
         self.log(f"{prefix}_loss", loss)
+        self.log(f"{prefix}_acc", acc)
 
     def predict_step(self, batch, batch_idx, dataloader_idx=0):
         x, y = batch["features"], batch["labels"]
