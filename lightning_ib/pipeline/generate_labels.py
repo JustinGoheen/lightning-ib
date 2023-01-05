@@ -22,7 +22,7 @@ from rich import print as rprint
 
 FILEPATH = Path(__file__)
 PROJECTPATH = FILEPATH.parents[2]
-OPTIMIZEDDMAPATH = os.path.join(PROJECTPATH, "data", "optimized_dma.pq")
+OPTIMIZEDDMAPATH = os.path.join(PROJECTPATH, "data", "markets", "training", "optimized_dma.pq")
 SPYDATAPATH = os.path.join(PROJECTPATH, "data", "markets", "raw", "equities", "SPY.pq")
 LABELSPATH = os.path.join("data", "labels.pq")
 
