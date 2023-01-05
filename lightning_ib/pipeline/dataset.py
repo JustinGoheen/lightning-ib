@@ -36,4 +36,4 @@ class LitDataset(Dataset):
 
     def __getitem__(self, idx):
         x, y = self.features.iloc[idx], self.labels.iloc[idx]
-        return dict(features=torch.tensor(x), labels=torch.tensor(y))
+        return dict(features=torch.tensor(x, dtype=torch.float32), labels=torch.tensor(y))
