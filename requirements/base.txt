@@ -6,6 +6,8 @@ lightning_training_studio @ git+https://github.com/Lightning-AI/lightning-hpo.gi
 optuna
 # experiment manager
 wandb
+# data
+torchdata
 # # tensorboard support for pytorch profiler
 # torch-tb-profiler
 # # pod-cli support
