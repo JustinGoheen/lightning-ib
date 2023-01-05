@@ -3,6 +3,7 @@
 
 import lightning as L
 import torch.nn.functional as F
+import torch
 from torch import nn, optim
 from torchmetrics.functional import accuracy
 
@@ -35,16 +36,16 @@ class LitModel(L.LightningModule):
         )
 
     def forward(self, x):
-        x = x.view(x.size(0), -1)
         x = self.linear(x)
         y_hat = F.softmax(x)
         return y_hat
 
     def training_step(self, batch, batch_idx: int):
-        x, y = batch
+        x, y = batch["features"], batch["labels"]
         x = x.view(x.size(0), -1)
+        y = torch.flatten(y)
         y_hat = self.linear(x)
-        loss = F.cross_entropy(y_hat, y)
+        loss = F.cross_entropy(y_hat, y, reduction="sum")
 
         if self.hparams.l1_strength > 0:
             l1_reg = self.linear.weight.abs().sum()
@@ -63,15 +64,16 @@ class LitModel(L.LightningModule):
         self._shared_eval(batch, "val")
 
     def _shared_eval(self, batch, prefix):
-        x, y = batch
+        x, y = batch["features"], batch["labels"]
         x = x.view(x.size(0), -1)
         y_hat = self.linear(x)
-        acc = accuracy(F.log_softmax(y_hat, -1), y)
-        loss = F.cross_entropy(y_hat, y)
-        self.log(f"{prefix}_loss: {loss}", f"{prefix}_acc: {acc}")
+        y = torch.flatten(y)
+        # acc = accuracy(F.softmax(y_hat, -1), y, "binary")
+        loss = F.cross_entropy(y_hat, y, reduction="sum")
+        self.log(f"{prefix}_loss", loss)
 
     def predict_step(self, batch, batch_idx, dataloader_idx=0):
-        x, y = batch
+        x, y = batch["features"], batch["labels"]
         return self(x)
 
     def configure_optimizers(self):
